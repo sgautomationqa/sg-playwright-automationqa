@@ -4,6 +4,7 @@ const RegisterUser = require('../pages/RegisterUser');
 
 const LoginUser = require('../pages/LoginUser');
 
+const ContactusformPage = require('../pages/ContactusformPage');
 const generateUser = require('../utils/userFactory');
 
 exports.test = base.test.extend({
@@ -23,6 +24,11 @@ exports.test = base.test.extend({
         const user = generateUser();
 
         await use(user);
+    },
+
+    contactusformpage: async ({ page }, use) => {
+        
+        await use(new ContactusformPage(page));
     }
 
 });

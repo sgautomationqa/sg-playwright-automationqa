@@ -34,6 +34,7 @@ class RegisterUser{
         this.loggedInUsername = page.locator("//a[contains(text(),'Logged in as')]/b");
         this.deleteaccountLink = page.getByRole('link', { name: 'Delete Account' });
         this.accountDeletedText = page.getByText('Account Deleted!');
+        this.logoutLink = page.getByRole('link', { name: 'Logout' });
 
     }
 
@@ -56,9 +57,9 @@ class RegisterUser{
     async validateAccountInfoPage(){
         await expect(this.enterAccountInfoText).toBeVisible();  
 }
-    async enteraccinfo(){
+    async enteraccinfo(password){
         await this.title.check();
-        await this.password.fill('automationexercisepassword');
+        await this.password.fill(password);
         await this.days.selectOption('10');
         await this.months.selectOption('March');
         await this.years.selectOption('2000');
@@ -92,6 +93,9 @@ class RegisterUser{
     async validateLoggedInUsername(name){
         await expect(this.loggedInUsername).toBeVisible();
         await expect(this.loggedInUsername).toHaveText(name);
+    }
+    async logout(){
+        await this.logoutLink.click();
     }
     async deleteAccount(){
         await this.deleteaccountLink.click();

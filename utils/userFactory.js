@@ -1,15 +1,12 @@
-class UserFactory {
+function generateUser() {
 
-  static createUser() {
+  const random = Math.floor(Math.random() * 10000);
 
-    const random = Math.floor(Math.random() * 10000);
-
-    return {
-      name: `User${random}`,
-      email: `user${random}@gmail.com`,
-      
-    };
-  }
+  return {
+    name: `User${random}`,
+    email: `user${random}@gmail.com`,
+    password: 'Test@1234'
+  };
 }
 
-module.exports = UserFactory;
+module.exports = generateUser;

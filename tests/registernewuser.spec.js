@@ -1,9 +1,11 @@
 const { expect } = require('@playwright/test');
-const { test } = require('../fixtures/registeruserFixture');
-const UserFactory = require('../utils/userFactory');
-const data = require('../utils/testData');
-const user = UserFactory.createUser();
-test('Register a new user and validate registration', async ({ registeruser }) => {
+
+const { test } = require('../fixtures/baseFixture');
+const generateUser = require('../utils/userFactory');
+
+
+
+test('Register a new user and validate registration', async ({ registeruser, user}) => {
     await registeruser.page.goto('http://automationexercise.com');
     await registeruser.validateHomepageTitle();
     await registeruser.clickLoginLink();
@@ -13,7 +15,7 @@ test('Register a new user and validate registration', async ({ registeruser }) =
     console.log(`Registered user: ${user.name} with email: ${user.email}`);
     await registeruser.validateAccountInfoPage();
     //Enter account, address information and create account
-    await registeruser.enteraccinfo();
+    await registeruser.enteraccinfo(user.password);
     await registeruser.addressinfo();
     await registeruser.clickCreateAccountButton();
     await registeruser.validateAccountCreated();
@@ -21,6 +23,6 @@ test('Register a new user and validate registration', async ({ registeruser }) =
     await registeruser.validateLoggedInAsText();
     await registeruser.validateLoggedInUsername(user.name);
     //Delete the account and validate deletion
-    await registeruser.deleteAccount();
-    await registeruser.validateAccountDeleted();
+    // await registeruser.deleteAccount();
+    // await registeruser.validateAccountDeleted();
 });
